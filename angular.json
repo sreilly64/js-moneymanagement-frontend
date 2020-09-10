@@ -15,8 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            },
             "outputPath": "dist/js-moneymanagement-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -64,9 +67,13 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "js-moneymanagement-frontend:build"
+            "browserTarget": "js-moneymanagement-frontend:build",
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            },
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
