@@ -27,7 +27,7 @@ export class LoginService {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
-        this.router.navigateByUrl('account-dashboard');
+        this.router.navigateByUrl('/dashboard');
       } else if (res.Message) {
         this.errorSubject.next(res.Message);
       }
