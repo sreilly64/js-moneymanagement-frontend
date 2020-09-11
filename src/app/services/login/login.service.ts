@@ -36,9 +36,9 @@ export class LoginService {
 
   isAuthenticated(): boolean {
     if (sessionStorage.getItem('jwt')) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 
