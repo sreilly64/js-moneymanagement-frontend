@@ -13,7 +13,7 @@ const httpOption = {
   providedIn: 'root'
 })
 export class LoginService {
-  url: any = 'http://localhost:8080/login';
+  url: any = 'http://localhost:8080/api/login';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
 
@@ -27,11 +27,19 @@ export class LoginService {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
-        this.router.navigateByUrl('account_dashboard');
+        this.router.navigateByUrl('account-dashboard');
       } else if (res.Message) {
         this.errorSubject.next(res.Message);
       }
     });
+  }
+
+  isAuthenticated(): boolean {
+    if (sessionStorage.getItem('jwt')) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }
