@@ -1,0 +1,23 @@
+#login-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  color: white;
+  position: relative;
+  background-image: url('../../assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  .notification {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+#money-bee-logo {
+    color: rgb(215, 188, 39);
+    text-align: center;
+    font-size: 200%;
+}
