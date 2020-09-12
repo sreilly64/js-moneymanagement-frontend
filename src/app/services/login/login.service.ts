@@ -13,7 +13,7 @@ const httpOption = {
   providedIn: 'root'
 })
 export class LoginService {
-  url: any = 'http://localhost:8080/api/login';
+  url: any = 'http://localhost:8080/api/authenticate';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
 
@@ -23,7 +23,7 @@ export class LoginService {
   ) { }
 
   login(Username: string, Password: string): any {
-    this.http.post(this.url, { Username, Password }, httpOption).toPromise().then((res: any) => {
+    this.http.post(this.url, { "username": Username, "password": Password }, httpOption).toPromise().then((res: any) => {
       if (res && res.jwt) {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
