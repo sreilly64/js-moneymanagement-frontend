@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginService
-      .errorSubject
+      .errorMessage
       .subscribe(errorMessage => {
         this.error = errorMessage;
     })

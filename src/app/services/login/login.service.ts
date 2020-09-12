@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router'
 
@@ -28,9 +28,9 @@ export class LoginService {
         sessionStorage.setItem('jwt', res.jwt);
         this.errorSubject.next(null);
         this.router.navigateByUrl('/dashboard');
-      } else if (res.Message) {
-        this.errorSubject.next(res.Message);
-      }
+      } 
+    }) .catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
     });
   }
 
