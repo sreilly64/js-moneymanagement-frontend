@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  keyDown(event: any){
+    if(event.keyCode === 13){
+      this.onSubmit();
+    }
+  }
+
   onSubmit(){
     if(this.isUsernameValid){
       this.loginService.login(this.username, this.password);
