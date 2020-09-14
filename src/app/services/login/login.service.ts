@@ -13,6 +13,7 @@ const httpOption = {
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
   url: any = 'http://localhost:8080/api/authenticate';
   errorSubject: any = new BehaviorSubject<any>(null);
@@ -27,30 +28,28 @@ export class LoginService {
 
   login(Username: string, Password: string): any {
     this.http.post(this.url, { "username": Username, "password": Password }, httpOption).toPromise().then((res: any) => {
-      if (res && res.jwt) {
+      if (res && res.jwt && res.user) {
         sessionStorage.setItem('jwt', res.jwt);
+        sessionStorage.setItem('userId', res.user.userId);
         this.errorSubject.next(null);
-        this.getUserData(res.jwt);
+        this.userSubject.next(res.user);
         this.router.navigateByUrl('/dashboard');
       } 
-    }) .catch((err: HttpErrorResponse) => {
+    }).catch((err: HttpErrorResponse) => {
       this.errorSubject.next(err.error.message)
     });
   }
 
-  getUserData(jwt: string): void {
-    httpOption.headers = httpOption.headers.set('Authorization', 'Bearer '.concat(jwt));
-    this.http.get('http://localhost:8080/api/users/2', httpOption).toPromise().then((res: any) => {
-      this.userSubject.next(res.username);
-    })
-  }
-
-  isAuthenticated(): boolean {
-    if (sessionStorage.getItem('jwt')) {
-      return true;
-    } else {
-      return false;
-    }
+  getUser() {
+    const userId = sessionStorage.getItem('userId');
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+    return this.http.get(`http://localhost:8080/api/users/${userId}`, authHeader);
   }
 
 }

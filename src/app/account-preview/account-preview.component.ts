@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AccountService } from './../services/accounts/account.service';
 
 @Component({
   selector: 'app-account-preview',
@@ -8,9 +9,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AccountPreviewComponent implements OnInit {
   @Input() user: any;
 
-  constructor() { }
+  accounts: any = null;
+
+  constructor(
+    private accountService: AccountService,
+  ) { }
 
   ngOnInit(): void {
+    this.accountService
+      .accounts
+      .subscribe(accountsList => {
+        this.accounts = accountsList;
+      })
   }
 
 }

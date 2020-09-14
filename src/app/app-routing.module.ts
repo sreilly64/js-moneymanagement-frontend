@@ -4,11 +4,12 @@ import {AuthGuardGuard } from './services/guards/auth-guard.guard';
 
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component'
+import { UserResolverService } from './services/user-resolver/user-resolver.service';
 
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardGuard] }
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} }
 ];
 
 @NgModule({

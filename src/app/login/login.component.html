@@ -8,7 +8,9 @@
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-yellow-200" 
             id="username" type="text" placeholder="Username" (keyup)="onKey($event, 'username')" required>
-            <p *ngIf="!isUsernameValid" class="text-red-500 text-xs italic">Username must consist of only letters and numbers.</p>
+            <p *ngIf="!isUsernameValid" class="text-red-500 text-xs italic">
+              Username must consist of only letters and numbers.
+            </p>
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">

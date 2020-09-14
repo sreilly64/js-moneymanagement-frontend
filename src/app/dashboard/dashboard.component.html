@@ -6,5 +6,5 @@
         </h3>
       </div>
     </div>
-    <app-account-preview [user]="user"></app-account-preview>
+    <app-account-preview *ngIf="user" [user]="user"></app-account-preview>
   </div>
