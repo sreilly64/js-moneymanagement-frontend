@@ -28,11 +28,11 @@ export class LoginService {
 
   login(Username: string, Password: string): any {
     this.http.post(this.url, { "username": Username, "password": Password }, httpOption).toPromise().then((res: any) => {
-      if (res && res.jwt && res.user) {
+      if (res.jwt && res.userId) {
         sessionStorage.setItem('jwt', res.jwt);
-        sessionStorage.setItem('userId', res.user.userId);
+        sessionStorage.setItem('userId', res.userId);
         this.errorSubject.next(null);
-        this.userSubject.next(res.user);
+        this.userSubject.next(res);
         this.router.navigateByUrl('/dashboard');
       } 
     }).catch((err: HttpErrorResponse) => {
@@ -49,7 +49,7 @@ export class LoginService {
         Authorization: 'Bearer ' + jwt,
       })
     };
-    return this.http.get(`http://localhost:8080/api/users/${userId}`, authHeader);
+    return this.http.get(`http://localhost:8080/api/users/${userId}/accounts`, authHeader);
   }
 
 }

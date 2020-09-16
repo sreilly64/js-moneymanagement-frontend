@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountPreviewComponent } from '../account-preview/account-preview.component';
 import { ActivatedRoute } from '@angular/router';
-//import { LoginService } from '../services/login/login.service';
+import { AccountPreviewComponent } from './../account-preview/account-preview.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +16,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data: {user: any }) => {
+    this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
     })
   }

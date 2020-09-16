@@ -1,9 +1,9 @@
-<div *ngFor="let userAccount of accounts">
+<div *ngFor="let userAccount of user.accounts" id="account-list">
   <div id=account-card class="max-w-sm rounded overflow-hidden shadow-lg">
     <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Test</div>
+      <div class="font-bold text-xl mb-2">{{userAccount.type}} with account number: {{userAccount.accountNumber}}</div>
       <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+         Balance: ${{userAccount.balance}}
       </p>
     </div>
   </div>

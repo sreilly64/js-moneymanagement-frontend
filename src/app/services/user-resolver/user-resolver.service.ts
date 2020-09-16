@@ -8,7 +8,9 @@ import { LoginService } from './../login/login.service';
 })
 
 export class UserResolverService implements Resolve<any> {
-  constructor(private user: LoginService) {}
+  constructor(
+    private user: LoginService,
+    ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any | Observable<never> {
     return this.user.getUser();
