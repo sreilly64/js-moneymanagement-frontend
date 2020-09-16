@@ -123,5 +123,8 @@ export class RegisterComponent implements OnInit {
     this.state = $event.target.options[$event.target.options.selectedIndex].text;
   }
 
+  clearError(){
+    this.loginService.errorSubject.next(null);
+  }
 
 }

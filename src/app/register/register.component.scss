@@ -10,7 +10,8 @@
     background-position: center;
 
     .notification {
-        display: inline-block
+        text-align: center;
+        display: inline-block;
     }
 }
 
@@ -19,6 +20,14 @@
     flex-direction: column;
     align-content: space-between;
 }
+
+button{
+    margin-right: 20px;
+}
+
+a{
+     margin-left: 20px;
+ }
 
 // #grid-ssn {
 //     // margin-left: -12px !important;

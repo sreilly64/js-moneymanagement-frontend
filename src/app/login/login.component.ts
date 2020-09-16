@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
   }
 
   clearError(){
-    //this.error = null;
     this.loginService.errorSubject.next(null);
   }
 
