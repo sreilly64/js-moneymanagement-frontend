@@ -2,11 +2,16 @@
   background-color: white;
   margin-top: 15px;
   text-align: center;
-  min-width: 25vw;
+  min-width: 300px;
 }
 
 #account-list {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+#balance {
+  font-weight: bold;
+  font-size: xx-large;
 }

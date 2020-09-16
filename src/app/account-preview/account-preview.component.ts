@@ -10,12 +10,14 @@ import { BrowserModule } from '@angular/platform-browser';
 export class AccountPreviewComponent implements OnInit {
   @Input() user: any;
 
-  constructor() { 
-     
-  }
+  constructor() { }
 
   ngOnInit(): void {
     
+  }
+
+  setDecimalPlaceToTwo(amount: string): string{
+    return parseFloat(amount).toFixed(2);
   }
 
 }
