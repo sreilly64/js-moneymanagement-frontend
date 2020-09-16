@@ -20,4 +20,8 @@ export class AccountPreviewComponent implements OnInit {
     return parseFloat(amount).toFixed(2);
   }
 
+  transfer(){
+    
+  }
+
 }
