@@ -7,18 +7,25 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountPreviewComponent } from './account-preview/account-preview.component';
+import { RegisterComponent } from './register/register.component';
+import { AccountSelectionComponent } from './account-selection/account-selection.component';
+import { FormsModule }   from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    AccountPreviewComponent
+    AccountPreviewComponent,
+    RegisterComponent,
+    AccountSelectionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

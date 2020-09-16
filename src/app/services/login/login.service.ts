@@ -15,7 +15,7 @@ const httpOption = {
 })
 
 export class LoginService {
-  url: any = 'http://localhost:8080/api/authenticate';
+  url: any = 'http://localhost:8080/api';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
   userSubject: any = new BehaviorSubject<any>(null);
@@ -27,7 +27,7 @@ export class LoginService {
   ) { }
 
   login(Username: string, Password: string): any {
-    this.http.post(this.url, { "username": Username, "password": Password }, httpOption).toPromise().then((res: any) => {
+    this.http.post(`${this.url}/authenticate`, { "username": Username, "password": Password }, httpOption).toPromise().then((res: any) => {
       if (res.jwt && res.userId) {
         sessionStorage.setItem('jwt', res.jwt);
         sessionStorage.setItem('userId', res.userId);
@@ -40,6 +40,7 @@ export class LoginService {
     });
   }
 
+
   getUser() {
     const userId = sessionStorage.getItem('userId');
     const jwt = sessionStorage.getItem('jwt');
@@ -51,5 +52,18 @@ export class LoginService {
     };
     return this.http.get(`http://localhost:8080/api/users/${userId}/accounts`, authHeader);
   }
+
+  register(FirstName: string, LastName: string, SSN: string, Email: string, PhoneNumber: string, Username: string, Password: string, Address: string) {
+    this.http.post(`${this.url}/users`, { "firstName": FirstName, "lastName": LastName, "ssn": SSN, "email": Email, "phoneNumber": PhoneNumber, "username": Username, "password": Password, "address": Address}, httpOption).toPromise().then((res: any) => {
+      if (res.jwt && res.userId) {
+        sessionStorage.setItem('jwt', res.jwt);
+        sessionStorage.setItem('userId', res.userId);
+        this.errorSubject.next(null);
+        this.router.navigateByUrl('/account-selection');
+      } 
+    }) .catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
+    });  
+   }
 
 }
