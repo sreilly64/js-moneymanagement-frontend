@@ -7,8 +7,8 @@ import { LoginService } from './../services/login/login.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
+  username: string = null;
+  password: string = null;
   isUsernameValid: boolean = true;
   error: any = null;
 
@@ -42,10 +42,20 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  keyDown(event: any){
+    if(event.keyCode === 13){
+      this.onSubmit();
+    }
+  }
+
   onSubmit(){
     if(this.isUsernameValid){
       this.loginService.login(this.username, this.password);
     }
+  }
+
+  clearError(){
+    this.error = null;
   }
 
 }
