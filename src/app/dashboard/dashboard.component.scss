@@ -2,13 +2,13 @@
   min-height: 100vh;
   min-width: 100vw;
   background-color: rgb(250, 203, 115);
-  background-size: cover;
-  background-position: center;
 
   h3 {
-    font-size: 24px;
-    color: rgb(45, 71, 136);
-
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    //-webkit-text-stroke-width: 2px;
+    //-webkit-text-stroke-color: rgb(24, 24, 24);
   }
 
   #dashboard-banner {
@@ -17,6 +17,10 @@
     min-height: 15vh;
     max-height: 15vh;
   }
+
+  // #account-card {
+    
+  // }
 }
 
 

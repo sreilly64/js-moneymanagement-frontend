@@ -1,4 +1,12 @@
 #account-card {
   background-color: white;
-  margin: 15px;
+  margin-top: 15px;
+  text-align: center;
+  min-width: 25vw;
+}
+
+#account-list {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

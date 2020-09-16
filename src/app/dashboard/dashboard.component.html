@@ -1,8 +1,8 @@
 <div id="dashboard-component" class="container mx-auto items-center justify-center">
   <div id="dashboard-banner" class="flex mx-auto items-center justify-center">
     <h3>
-      Hi {{user ? user.firstName : 'User'}}, here is your dashboard:
+      Hi {{user ? user.firstName : 'User'}}, welcome to your dashboard.
     </h3>
   </div>
-  <app-account-preview *ngIf="user" [user]="user"></app-account-preview>
+  <app-account-preview id="account-card" [user]="user"></app-account-preview>
 </div>
