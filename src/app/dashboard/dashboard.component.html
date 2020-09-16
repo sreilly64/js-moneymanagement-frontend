@@ -1,8 +1,21 @@
 <div id="dashboard-component" class="container mx-auto items-center justify-center">
+  <div id="nav-bar">
+    <img src="./../../assets/money-bee-logo.png">
+    <div class="dropdown">
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Options 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/account-selection">Add New Account</a>
+        <a href="/">User Settings</a>
+        <a href="/" (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
   <div id="dashboard-banner" class="flex mx-auto items-center justify-center">
     <h3>
-      Hi {{user ? user.firstName : 'User'}}, here is your dashboard:
+      Hi {{user ? user.firstName : 'User'}}, welcome to your dashboard.
     </h3>
   </div>
-  <app-account-preview *ngIf="user" [user]="user"></app-account-preview>
+  <app-account-preview id="account-card" [user]="user"></app-account-preview>
 </div>
