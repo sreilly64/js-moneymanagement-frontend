@@ -15,7 +15,6 @@ const routes: Routes = [
   {path: '', component: LoginComponent },
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
   {path: 'register', component: RegisterComponent},
-  {path: 'account-selection', component: AccountSelectionComponent},
   {path: 'transfers', component: TransferFundsComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
   {path: 'account-selection', component: AccountSelectionComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
 ];
