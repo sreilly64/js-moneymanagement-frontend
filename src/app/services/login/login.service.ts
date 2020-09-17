@@ -66,4 +66,21 @@ export class LoginService {
     });  
    }
 
+   postAccount(DollarInput: string, AccountType: string) {
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+
+   this.http.post(`${this.url}/accounts`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput}, authHeader).toPromise().then((res: any) => {
+     if (res && res.accountNumber) {
+       this.router.navigateByUrl('/dashboard');
+     }
+   }) .catch((err: HttpErrorResponse) => {
+     this.errorSubject.next(err.error.message)
+   }); 
+  }
 }

@@ -1,4 +1,4 @@
-#login-container {
+#account-selection-container {
     min-height: 100vh;
     min-width: 100vw;
     color: white;
@@ -6,12 +6,15 @@
     background-image: url('../../assets/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-    
-    .notification {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  }
+    background-position: center;  
+}
+
+#submitButton {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#backLink {
+  margin: 25px;
+}
