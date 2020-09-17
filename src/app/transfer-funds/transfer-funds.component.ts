@@ -1,23 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../services/accounts/account.service';
 
 @Component({
   selector: 'app-transfer-funds',
   templateUrl: './transfer-funds.component.html',
   styleUrls: ['./transfer-funds.component.scss']
 })
-export class TransferFundsComponent implements OnInit {
+export class TransferFundsComponent implements OnInit {  
   transactionType: string = "withdraw";
+  accountToTransferTo: string = null;
   dollarAmount: string = null;
   amountIsValid: boolean = false;
+  user: any = null;
+  error: any = null;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private accountService: AccountService,
+  ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: { user: any }) => {
+      this.user = data.user;
+    })
+    this.accountService
+      .errorMessage
+      .subscribe(errorMessage => {
+        this.error = errorMessage;
+    })
+  }
+
+  listOfOtherAcccounts(): any{
+    let currentAccount = sessionStorage.getItem('accountNumber');
+    let otherAccounts: Array<any> = [];
+    for(let i = 0; i < this.user.accounts.length; i++){
+      if(this.user.accounts[i].accountNumber != currentAccount){
+        otherAccounts.push(this.user.accounts[i]);
+      }
+    }
+    return otherAccounts;
+  }
+
+  generateBannerMessage(): string{
+    let accountType = sessionStorage.getItem('accountType')
+    let displayedType = accountType.charAt(0) + accountType.slice(1).toLowerCase();
+
+    let message: string = `${displayedType} - Account #${sessionStorage.getItem('accountNumber')}`
+    return message;
   }
 
   logout(){
-    sessionStorage.removeItem('jwt');
-    sessionStorage.removeItem('userId');
+    sessionStorage.clear();
   }
 
   onKey(event: any){
@@ -34,12 +68,26 @@ export class TransferFundsComponent implements OnInit {
     this.transactionType = type;
   }
 
-  onSubmit(){
+  updateAccountToTransferTo(accountNumber: string){
+    this.accountToTransferTo = accountNumber;
+  }
 
+  onSubmit(){
+    if(this.amountIsValid){
+      if(this.transactionType === 'withdraw'){
+        this.accountService.withdraw(this.dollarAmount);
+      }else if(this.transactionType === 'deposit'){
+        this.accountService.deposit(this.dollarAmount);
+      }else{
+        this.accountService.transfer(this.dollarAmount, this.accountToTransferTo);
+      }
+    } else {
+      this.error = "Invalid dollar amount"
+    }
   }
 
   clearError(){
-
+    this.accountService.errorSubject.next(null);
   }
 
 }

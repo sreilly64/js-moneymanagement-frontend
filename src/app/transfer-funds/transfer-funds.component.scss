@@ -1,8 +1,7 @@
 #transfers-component {
     min-height: 100vh;
     min-width: 100vw;
-    background-color: rgb(252, 241, 152);
-    
+    background-color: rgb(252, 241, 152);    
 
     form {  
       margin-top: 40px;
@@ -69,6 +68,13 @@
       .dropdown:hover .dropdown-content {
         display: block;
       }
+    }
+
+    .notification {
+      width: 300px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
     }
   
   }
