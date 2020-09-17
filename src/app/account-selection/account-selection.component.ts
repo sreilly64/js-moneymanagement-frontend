@@ -31,6 +31,10 @@ export class AccountSelectionComponent implements OnInit {
     })
   }
 
+  logout(){
+    sessionStorage.clear();
+  }
+
   updateAccountType(accountType: any) {
     this.accountType = accountType;
   }  
