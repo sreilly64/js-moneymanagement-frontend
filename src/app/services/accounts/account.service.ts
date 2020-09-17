@@ -15,7 +15,7 @@ const httpOption = {
 })
 
 export class AccountService {
-  url: any = 'http://localhost:8080/api/accounts';
+  url: any = 'https://money-bee-backend.herokuapp.com/api/accounts';
   // accountSubject: any = new BehaviorSubject<any>(null);
   // accounts: any = this.accountSubject.asObservable();
   errorSubject: any = new BehaviorSubject<any>(null);
