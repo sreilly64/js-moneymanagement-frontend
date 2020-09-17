@@ -10,6 +10,7 @@ import { AccountPreviewComponent } from './account-preview/account-preview.compo
 import { RegisterComponent } from './register/register.component';
 import { AccountSelectionComponent } from './account-selection/account-selection.component';
 import { FormsModule }   from '@angular/forms';
+import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule }   from '@angular/forms';
     DashboardComponent,
     AccountPreviewComponent,
     RegisterComponent,
-    AccountSelectionComponent
+    AccountSelectionComponent,
+    TransferFundsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,14 @@
-<div *ngFor="let userAccount of user.accounts" id="account-list" class="items-center justify-center">
+<div *ngFor="let userAccount of user.accounts, index as i" id="account-list" class="items-center justify-center">
   <div id=account-card class="max-w-sm rounded overflow-hidden shadow-lg">
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{userAccount.type}} - #{{userAccount.accountNumber}}</div>
       <p class="text-gray-700 text-base">
         Available Balance: 
      </p>
-      <div id="balance">${{setDecimalPlaceToTwo(userAccount.balance)}}</div>
+     <div id="moneyStuff">
+      <span id="balance">${{setDecimalPlaceToTwo(userAccount.balance)}}</span>
+      <button id="transferButton" (click)="transfer(i)" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">Transfer</button>
+     </div>
     </div>
   </div>
 </div>

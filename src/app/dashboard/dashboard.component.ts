@@ -22,8 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(){
-    sessionStorage.removeItem('jwt');
-    sessionStorage.removeItem('userId');
+    sessionStorage.clear();
   }
 
 }

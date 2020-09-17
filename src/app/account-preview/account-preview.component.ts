@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Router } from '@angular/router'
+
 
 @Component({
   selector: 'app-account-preview',
@@ -10,7 +12,9 @@ import { BrowserModule } from '@angular/platform-browser';
 export class AccountPreviewComponent implements OnInit {
   @Input() user: any;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     
@@ -18,6 +22,12 @@ export class AccountPreviewComponent implements OnInit {
 
   setDecimalPlaceToTwo(amount: string): string{
     return parseFloat(amount).toFixed(2);
+  }
+
+  transfer(index: any){
+    sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber)
+    sessionStorage.setItem('accountType', this.user.accounts[index].type)
+    this.router.navigateByUrl('/transfers');
   }
 
 }
