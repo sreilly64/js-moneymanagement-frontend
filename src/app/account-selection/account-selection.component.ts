@@ -24,6 +24,11 @@ export class AccountSelectionComponent implements OnInit {
     this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
     })
+    this.loginService
+      .errorMessage
+      .subscribe(errorMessage => {
+        this.error = errorMessage;
+    })
   }
 
   updateAccountType(accountType: any) {
@@ -52,6 +57,10 @@ export class AccountSelectionComponent implements OnInit {
     } else {
       this.error = "Invalid dollar amount."
     }
+  }
+
+  clearError(): void {
+    this.loginService.errorSubject.next(null);
   }
 
 }
