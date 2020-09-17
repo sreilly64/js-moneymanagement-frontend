@@ -31,6 +31,7 @@ export class AccountService {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
       headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + jwt,
       })
@@ -51,6 +52,7 @@ export class AccountService {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
       headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + jwt,
       })
