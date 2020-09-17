@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'account-selection', component: AccountSelectionComponent},
   {path: 'transfers', component: TransferFundsComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
+  {path: 'account-selection', component: AccountSelectionComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
 ];
 
 @NgModule({
