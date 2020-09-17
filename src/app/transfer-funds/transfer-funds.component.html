@@ -1,0 +1,64 @@
+<div id="transfers-component" class="container mx-auto items-center justify-center">
+    <div id="nav-bar">
+        <img src="./../../assets/money-bee-logo.png">
+        <div class="dropdown">
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Options 
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="/account-selection">Add New Account</a>
+            <a href="/">User Settings</a>
+            <a href="/" (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </div>
+      <div id="transfers-banner" class="flex mx-auto items-center justify-center">
+        <h3>
+          What action would you like to take?
+        </h3>
+      </div>
+    <div id="info-container" class="flex container mx-auto items-center justify-center">
+        <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="amount">
+                    Transaction Type
+                  </label>
+                <select class="block appearance-none bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500"
+                (change)="updateTransactionType($event.target.value)">
+                    <option value="withdraw">Withdraw</option>
+                    <option value="deposit">Desposit</option>
+                    <option value="transfer">Transfer</option>
+                </select>
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="amount">
+                Dollar Amount
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="amount" placeholder="" (keyup)="onKey($event)">
+              <p *ngIf="!amountIsValid" class="text-red-500 text-xs italic">
+                Please format your amount as follows: 100.00
+              </p>
+            </div>
+            <div *ngIf="transactionType === 'transfer'" class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="amount">
+                    Account to transfer to
+                  </label>
+                <select class="block appearance-none bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500">
+                    <option>Withdraw</option>
+                    <option>Desposit</option>
+                    <option>Transfer</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-between">
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button"
+              (click)="onSubmit()">
+                Submit
+              </button>
+              <a class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" (click)="clearError()" href="#" [routerLink]="['/dashboard']">
+                Cancel
+              </a>
+            </div>
+          </form>
+    </div>
+</div>

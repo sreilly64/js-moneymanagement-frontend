@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component'
 import { UserResolverService } from './services/user-resolver/user-resolver.service';
 import { RegisterComponent } from './register/register.component';
 import { AccountSelectionComponent} from './account-selection/account-selection.component';
+import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
 
 
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
   {path: 'register', component: RegisterComponent},
   {path: 'account-selection', component: AccountSelectionComponent},
+  {path: 'transfers', component: TransferFundsComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
 ];
 
 @NgModule({
