@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthGuardGuard implements CanActivate {
-  url = 'https://localhost:8080/api'
+  url = 'http://localhost:8080/api'
 
   constructor(
     private router: Router,
