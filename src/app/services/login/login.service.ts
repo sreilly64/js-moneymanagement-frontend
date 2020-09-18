@@ -15,7 +15,7 @@ const httpOption = {
 })
 
 export class LoginService {
-  url: any = 'https://money-bee-backend.herokuapp.com/api';
+  url: any = 'https://localhost:8080/api';
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
   userSubject: any = new BehaviorSubject<any>(null);
@@ -51,7 +51,7 @@ export class LoginService {
         Authorization: 'Bearer ' + jwt,
       })
     };
-    return this.http.get(`https://money-bee-backend.herokuapp.com/api/users/${userId}/accounts`, authHeader);
+    return this.http.get(`https://localhost:8080/api/users/${userId}/accounts`, authHeader);
   }
 
   register(FirstName: string, LastName: string, SSN: string, Email: string, PhoneNumber: string, Username: string, Password: string, Address: string) {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "https://money-bee.herokuapp.com"
+  baseUrl: "http://localhost:4200"
 };
 
 /*
