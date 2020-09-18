@@ -63,7 +63,7 @@
             </label>
             <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-password" type="password" placeholder="Password" (keyup)="onKey($event, 'password')" required>
             <p *ngIf="!valid.password" class="text-red-500 text-xs italic">
-                Please include an uppercase letter, a lowercase letter, a digit, and a special character in your password.
+                Password must be at least 8 characters and include an uppercase and lowercase letter, a digit, and a special character.
             </p>  
         </div>
           <div class="w-full md:w-1/2 px-3" id="grid-confirm-password">

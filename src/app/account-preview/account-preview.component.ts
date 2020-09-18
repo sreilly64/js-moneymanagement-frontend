@@ -25,8 +25,9 @@ export class AccountPreviewComponent implements OnInit {
   }
 
   transfer(index: any){
-    sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber)
-    sessionStorage.setItem('accountType', this.user.accounts[index].type)
+    sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber);
+    sessionStorage.setItem('accountType', this.user.accounts[index].type);
+    sessionStorage.setItem('accountBalance', this.user.accounts[index].balance);
     this.router.navigateByUrl('/transfers');
   }
 

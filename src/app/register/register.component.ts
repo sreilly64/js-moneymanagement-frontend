@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   zip: string = null;
   email: string = null;
   phoneNumber: string = null;
-  username: string = null;
-  password: string = null;
-  confirmPassword: string = null;
+  username: string = "";
+  password: string = "";
+  confirmPassword: string = "";
   address: string = null;
   valid = {
     firstName: false,
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     const phoneNumberPattern = RegExp(/^[2-9]\d{2}-\d{3}-\d{4}$/);
     const ssnPattern = RegExp(/^\d{3}-\d{2}-\d{4}$/);
     const passwordPattern = RegExp(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@$!%*?&#])[a-zA-Z0-9!@#$%^&*]{8,}$/);
-
+    const zipcodePattern = RegExp(/^\d{5}$/);
 
     if(type === 'username') {
       this.valid.username = usernamePattern.test(this.username);
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
     } else if(type === 'city') {
       this.valid.city = this.city.length > 0;
     } else if(type === 'zip') {
-      this.valid.zip = this.zip.length > 0;
+      this.valid.zip = zipcodePattern.test(this.zip);
     }
 }
 

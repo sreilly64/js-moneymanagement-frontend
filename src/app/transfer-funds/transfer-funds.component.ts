@@ -46,7 +46,7 @@ export class TransferFundsComponent implements OnInit {
     let accountType = sessionStorage.getItem('accountType')
     let displayedType = accountType.charAt(0) + accountType.slice(1).toLowerCase();
 
-    let message: string = `${displayedType} - Account #${sessionStorage.getItem('accountNumber')}`
+    let message: string = `${displayedType} - Account #${sessionStorage.getItem('accountNumber')} - Balance: $${parseFloat(sessionStorage.getItem('accountBalance')).toFixed(2)}`
     return message;
   }
 
@@ -60,7 +60,7 @@ export class TransferFundsComponent implements OnInit {
   }
 
   validateAmount(){
-    const dollarAmountPattern = RegExp(/^(([1-9]\d{0,2}(,\d{3})*)|0)?\.\d{2}$/);
+    const dollarAmountPattern = RegExp(/^\d+\.\d{2}$/);
     this.amountIsValid = dollarAmountPattern.test(this.dollarAmount)
   }
 

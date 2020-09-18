@@ -40,7 +40,7 @@ export class AccountSelectionComponent implements OnInit {
   }  
 
   validate(): void {
-    const dollarPattern = RegExp(/^(([1-9]\d{0,2}(,\d{3})*)|0)?\.\d{2}$/);
+    const dollarPattern = RegExp(/^\d+\.\d{2}$/);
     let amountEntered = parseFloat(this.dollarInput);
     if(this.accountType === "CHECKING") {
       this.amountIsValid = dollarPattern.test(this.dollarInput)&&amountEntered >= 5.00;
