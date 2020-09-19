@@ -8,7 +8,7 @@ import { UserResolverService } from './services/user-resolver/user-resolver.serv
 import { RegisterComponent } from './register/register.component';
 import { AccountSelectionComponent} from './account-selection/account-selection.component';
 import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
-
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 
 const routes: Routes = [
@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'transfers', component: TransferFundsComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
   {path: 'account-selection', component: AccountSelectionComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService} },
+  {path: 'user-settings', component: UserDetailsComponent, canActivate: [AuthGuardGuard], resolve: {user: UserResolverService}}
 ];
 
 @NgModule({
