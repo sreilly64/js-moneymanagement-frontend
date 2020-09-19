@@ -75,7 +75,7 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
-    if(targetAccount != null){
+    if(targetAccount != 0){
       this.http.put(`${this.url}/transfer`, { "fromAccountId": currentAccount, "toAccountId": targetAccount, "dollarAmount": dollarAmount }, authHeader).toPromise().then((res: any) =>{
         if(res.transactionType && res.dollarAmount){
           this.errorSubject.next(null);
