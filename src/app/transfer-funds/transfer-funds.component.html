@@ -50,7 +50,8 @@
                   <div class="relative">
                     <select class="block bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500"
                     (change)="updateAccountToTransferTo($event.target.value)">
-                      <option *ngFor="let account of listOfOtherAcccounts(); index as i" value="account.accountNumber">
+                      <option></option>
+                      <option *ngFor="let account of listOfOtherAcccounts(); index as i" value="{{account.accountNumber}}">
                         Account #{{account.accountNumber}}
                       </option>
                     </select>

@@ -9,7 +9,7 @@ import { AccountService } from '../services/accounts/account.service';
 })
 export class TransferFundsComponent implements OnInit {  
   transactionType: string = "withdraw";
-  accountToTransferTo: string = null;
+  accountToTransferTo: number = null;
   dollarAmount: string = null;
   amountIsValid: boolean = false;
   user: any = null;
@@ -68,7 +68,7 @@ export class TransferFundsComponent implements OnInit {
     this.transactionType = type;
   }
 
-  updateAccountToTransferTo(accountNumber: string){
+  updateAccountToTransferTo(accountNumber: number){
     this.accountToTransferTo = accountNumber;
   }
 

@@ -14,7 +14,7 @@
   </div>
   <div id="dashboard-banner" class="flex mx-auto items-center justify-center">
     <h3>
-      Hi {{user ? user.firstName : 'User'}}, welcome to your dashboard.
+      {{notification ? notification: 'Welcome to your dashboard!'}}
     </h3>
   </div>
   <app-account-preview id="account-card" [user]="user"></app-account-preview>
