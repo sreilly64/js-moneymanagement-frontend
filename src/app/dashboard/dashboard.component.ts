@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../services/accounts/account.service';
 import { AccountPreviewComponent } from './../account-preview/account-preview.component';
 
 @Component({
@@ -10,14 +11,21 @@ import { AccountPreviewComponent } from './../account-preview/account-preview.co
 export class DashboardComponent implements OnInit {
 
   user: any = null;
+  notification: string = null;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private accountService: AccountService,
   ) { }
 
   ngOnInit(): void {
     this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
+    })
+    this.accountService
+      .notification
+      .subscribe(notification => {
+        this.notification = notification;
     })
   }
 

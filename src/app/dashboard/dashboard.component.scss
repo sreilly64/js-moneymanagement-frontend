@@ -5,8 +5,12 @@
 
   h3 {
     font-size: 30px;
-    color: black;
+    color: rgb(70, 70, 70);
     font-weight: bold;
+    background-color: rgb(252, 241, 152);
+    border-color: rgb(70, 70, 70);
+    border: solid;
+    padding: 5px;
     //-webkit-text-stroke-width: 2px;
     //-webkit-text-stroke-color: rgb(24, 24, 24);
   }
