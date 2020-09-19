@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../services/login/login.service';
 import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '../services/accounts/account.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class AccountSelectionComponent implements OnInit {
   error = null; 
 
   constructor(
-    private loginService: LoginService,
+    private accountService: AccountService,
     private route: ActivatedRoute
   ) { }
 
@@ -24,7 +24,7 @@ export class AccountSelectionComponent implements OnInit {
     this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
     })
-    this.loginService
+    this.accountService
       .errorMessage
       .subscribe(errorMessage => {
         this.error = errorMessage;
@@ -57,14 +57,14 @@ export class AccountSelectionComponent implements OnInit {
 
   onSubmit(): void {
     if (this.amountIsValid) {
-      this.loginService.postAccount(this.dollarInput, this.accountType);
+      this.accountService.postAccount(this.dollarInput, this.accountType);
     } else {
       this.error = "Invalid dollar amount."
     }
   }
 
   clearError(): void {
-    this.loginService.errorSubject.next(null);
+    this.accountService.errorSubject.next(null);
   }
 
 }
