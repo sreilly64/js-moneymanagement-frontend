@@ -1,0 +1,66 @@
+<div id="nav-bar">
+    <a href="/dashboard">
+      <img src="./../../assets/money-bee-logo.png">
+    </a>
+    <div class="dropdown">
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Options 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/account-selection">Add New Account</a>
+        <a href="/dashboard">User Settings</a>
+        <a href="/account-settings">Account Settings</a>
+        <a href="/" (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div id="account-settings-container" class="flex container mx-auto items-center justify-center">
+    <div class="w-full max-w-xs" id="creationBox">
+        <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+          <div class="mb-6">
+            <p class= "text-gray-700 text-sm font-bold mb-2">Please select an account:</p>
+            <select class="text-gray-700 text-sm mb-2" name="accounts" id="accounts" (change)="updateAccountBalance($event.target.value)">
+            <option *ngFor="let account of listOfAcccounts(); index as i" value="{{account.balance}}">
+              Account #{{account.accountNumber}}
+          </select>
+            </div>
+              <div class="mb-6">
+                <p class= "text-gray-700 text-sm font-bold mb-2">Please select which action you would like to take:</p>
+                <select class="text-gray-700 text-sm mb-2" name="selection" id="selection" (change)="updateSelection($event.target.value)">
+                  <option value="addname">Add personalized name to account</option>
+                  <option value="delete">Delete account</option>
+                </select>
+              </div>
+              <div *ngIf="selection === 'delete' && accountBalance >= '0'" class="mb-4">
+                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select if you would like to withdraw or transfer your balance before deletion of the account.</p>
+                    <div class="relative">
+                    <select class="text-gray-700 text-sm mb-2" name="withdrawOrTransfer" id="withdrawOrTransfer" (change)="updateWithdrawOrTransfer($event.target.value)">
+                      <option value="withdraw">Withdraw</option>
+                      <option value="transfer">Transfer</option>
+                    </select>
+                  </div> 
+                </div>
+              <div *ngIf="withdrawOrTransfer === 'transfer'" class="mb-4">
+                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select the account you would like to transfer to. </p>
+                    <div class="relative">
+                    <select class="text-gray-700 text-sm mb-2" name="otherAccounts" id="otherAccounts" (change)="updateAccountToTransferTo($event.target.value)">
+                      <option *ngFor="let account of listOfOtherAcccounts(); index as i" value="{{account.accountNumber}}">
+                        Account #{{account.accountNumber}}
+                      </option>
+                    </select>
+                  </div> 
+                </div>
+          <div class="flex items-center justify-between" id="submitButton">
+            <!-- <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmit()">
+              Submit
+            </button> -->
+          </div>
+        </form>
+        <div *ngIf="error" class="notification bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Error! </strong>
+          <span class="block sm:inline">{{error}}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+              (click)="clearError()"/></svg>
+          </span>
+        </div>
