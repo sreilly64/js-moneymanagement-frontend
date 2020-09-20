@@ -40,6 +40,32 @@ export class LoginService {
     });
   }
 
+  validatePassword(password: string): boolean {
+    let userId = sessionStorage.getItem('userId');
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+    let output = false;
+    this.http.get(`${this.url}/users/${userId}`, authHeader).toPromise().then((res: any) => {
+      if (res && res.password) {
+        this.errorSubject.next(null);
+        if(res.password == password){
+          output = true
+        } else {
+          output = false;
+        }
+      } 
+    }).catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message);
+      output = false;
+    });
+    return output;
+  }
 
   getUser() {
     const userId = sessionStorage.getItem('userId');
@@ -65,6 +91,26 @@ export class LoginService {
     }) .catch((err: HttpErrorResponse) => {
       this.errorSubject.next(err.error.message)
     });  
-   }
+  }
+
+  updateUserDetails(firstName: string, lastName: string, email: string, phoneNumber: string, address: string){
+    let userId = sessionStorage.getItem('userId');
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+    this.http.put(`${this.url}/users/${userId}`, {"firstName": firstName, "lastName": lastName, "email": email, "phoneNumber": phoneNumber, "address": address}, authHeader).toPromise().then((res: any) => {
+      if (res && res.userId) {
+        this.errorSubject.next(null);
+        this.router.navigateByUrl('/dashboard');
+      } 
+    }).catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message);
+    });
+  }
 
 }

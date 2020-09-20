@@ -13,17 +13,89 @@
     </div>
   </div>
 </div>
-<div id="user-details-container" class="flex container mx-auto items-center justify-center">
+<div id="user-details-container" class="flex container mx-auto justify-center">
     <div class="w-full max-w-xs" id="creationBox">
         <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
-          <div class="mb-4">
+          <a class="block text-gray-700 text-l font-bold mb-6">
+            Edit User Details:
+          </a>
+          <div class="mb-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
               First Name
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
             focus:bg-yellow-200" id="firstName" type="text" placeholder="First Name" value="{{user.firstName}}" (keyup)="onKey($event, 'firstName')">
           </div>
-
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
+              Last Name
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="lastName" type="text" placeholder="Last Name" value="{{user.lastName}}" (keyup)="onKey($event, 'lastName')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="phoneNumber">
+              Phone Number
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="phoneNumber" type="text" placeholder="xxx-xxx-xxxx" value="{{user.phoneNumber}}" (keyup)="onKey($event, 'phoneNumber')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+              Email
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="email" type="text" placeholder="example@email.com" value="{{user.email}}" (keyup)="onKey($event, 'email')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+              Street
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="street" type="text" placeholder="123 Street" value="{{user.address}}" (keyup)="onKey($event, 'email')">
+          </div>
+          <div class="flex items-center justify-between" id="submitDetailsButton">
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitDetails()">
+              Submit
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" id="backLink" href="#" [routerLink]="['/dashboard']">
+              Back
+            </a>
+          </div>
+        </form>
+        <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+          <a class="block text-gray-700 text-l font-bold mb-6">
+            Change Password:
+          </a>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="oldPassword">
+              Old Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="oldPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'oldPassword')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newPassword">
+              New Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="newPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'newPassword')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">
+              Confirm New Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="confirmPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'confirmPassword')">
+          </div>
+          <div class="flex items-center justify-between" id="submitPasswordButton">
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitPassword()">
+              Submit
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" id="backLink" href="#" [routerLink]="['/dashboard']">
+              Back
+            </a>
+          </div>
         </form>
         <div *ngIf="error" class="notification bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
           <strong class="font-bold">Error! </strong>
