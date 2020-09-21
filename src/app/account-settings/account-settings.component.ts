@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../services/accounts/account.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-accountsettings',
@@ -12,7 +13,7 @@ export class AccountSettingsComponent implements OnInit {
   error = null;
   user: any = null;
   selection: string = '';
-  withdrawOrTransfer: string = '';
+  transactionType: string = '';
   accountToTransferTo: number = 0;
 
 
@@ -40,23 +41,16 @@ export class AccountSettingsComponent implements OnInit {
     this.accountService.errorSubject.next(null);
   }
 
-  listOfAcccounts(): any {
-    let allAccounts: Array<any> = [];
-    for(let i = 0; i < this.user.accounts.length; i++){
-        allAccounts.push(this.user.accounts[i]);
-    }
-    return allAccounts;
-  }
-
   updateSelection(selection: any) {
     this.selection = selection;
   }
 
-  updateAccountBalance(accountBalance: any) {
-    this.accountBalance = accountBalance;
+  updateAccountBalance(index: any) {
+    this.accountBalance = this.user.accounts[index].balance;
+    sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber);
   }
 
-  listOfOtherAcccounts(): any{
+  listOfOtherAcccounts(): any {
     let currentAccount = sessionStorage.getItem('accountNumber');
     let otherAccounts: Array<any> = [];
     for(let i = 0; i < this.user.accounts.length; i++){
@@ -67,13 +61,23 @@ export class AccountSettingsComponent implements OnInit {
     return otherAccounts;
   }
 
-  updateWithdrawOrTransfer(withdrawOrTransfer: any) {
-    this.withdrawOrTransfer = withdrawOrTransfer;
+  updateTransactionType(transactionType: any) {
+    this.transactionType = transactionType;
   }
 
   updateAccountToTransferTo(accountNumber: number){
     this.accountToTransferTo = accountNumber;
   }
 
+  onSubmit() {
+    if(this.accountBalance === 0) {
+      this.accountService.delete(sessionStorage.getItem('accountNumber'));    
+    } else if (this.accountBalance < 0) {
+      this.error = "Your balance is below $0.00, you cannot delete your account.";
+    } else if(this.transactionType === 'withdraw'){
+      
+    }
+
+  }
 
 }

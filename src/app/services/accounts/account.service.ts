@@ -113,4 +113,22 @@ export class AccountService {
     }
   }
 
-}
+  delete(AccountNumber: string) {
+    const currentAccount = sessionStorage.getItem('accountNumber');
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + jwt,
+      })
+    };
+    this.http.delete(`${this.url}/accounts/${AccountNumber}`, authHeader).toPromise().then((res: any) =>{
+      if (res && res.accountNumber) {
+        this.router.navigateByUrl('/dashboard');
+      }
+    }) .catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
+    });   
+    }
+  }
