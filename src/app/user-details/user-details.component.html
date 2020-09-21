@@ -14,45 +14,136 @@
   </div>
 </div>
 <div id="user-details-container" class="flex container mx-auto justify-center">
-    <div class="w-full max-w-xs" id="creationBox">
-        <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+    <div class="w-full max-w-xl" id="creationBox">
+        <form id="details-form" class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
           <a class="block text-gray-700 text-l font-bold mb-6">
             Edit User Details:
           </a>
-          <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="firstName">
-              First Name
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="firstName" type="text" placeholder="First Name" value="{{user.firstName}}" (keyup)="onKey($event, 'firstName')">
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0" id="grid-first-name">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                First Name
+              </label>
+              <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-first-name" required type="text" placeholder="First Name" value="{{firstName}}" (keyup)="onKey($event, 'firstName')" >
+              <p class="text-gray-600 text-xs italic">Please enter your first name as it is written on your government ID.</p>
           </div>
-          <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName">
-              Last Name
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="lastName" type="text" placeholder="Last Name" value="{{user.lastName}}" (keyup)="onKey($event, 'lastName')">
+            <div class="w-full md:w-1/2 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                Last Name
+              </label>
+              <input value="{{lastName}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name" (keyup)="onKey($event, 'lastName')" required>
+              <p class="text-gray-600 text-xs italic">Please enter your last name as it is written on your government ID.</p>  
+            </div>
           </div>
-          <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="phoneNumber">
-              Phone Number
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="phoneNumber" type="text" placeholder="xxx-xxx-xxxx" value="{{user.phoneNumber}}" (keyup)="onKey($event, 'phoneNumber')">
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone-number">
+                Phone Number
+              </label>
+              <input value="{{phoneNumber}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-phone-number" type="text" placeholder="Phone Number" (keyup)="onKey($event, 'phoneNumber')" required>
+              <p *ngIf="!valid.phoneNumber" class="text-red-500 text-xs italic">
+                  Please format your phone number as follows: ex) xxx-xxx-xxxx.
+              </p>   
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                Email
+              </label>
+              <input value="{{email}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-email" type="text" placeholder="Email" (keyup)="onKey($event, 'email')" required>
+              <p *ngIf="!valid.email" class="text-red-500 text-xs italic">
+                  Please format your email as follows: ex) janedoe@anyemail.com.
+              </p>   
+            </div>
           </div>
-          <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-              Email
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="email" type="text" placeholder="example@email.com" value="{{user.email}}" (keyup)="onKey($event, 'email')">
+
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+                Street
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="street" type="text" placeholder="123 Street" value="{{street}}" (keyup)="onKey($event, 'street')">    
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                City
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="city" type="text" placeholder="City" value="{{city}}" (keyup)="onKey($event, 'city')">     
+            </div>
           </div>
-          <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
-              Street
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="street" type="text" placeholder="123 Street" value="{{user.address}}" (keyup)="onKey($event, 'email')">
+
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                State
+              </label>
+              <div class="relative">
+                <select class="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" (change) ="onChange($event)" id="grid-state">
+                  <option>{{state}}</option>
+                  <option>Alabama</option>
+                  <option>Alaska</option>
+                  <option>Arizona</option>
+                  <option>Arkansas</option>
+                  <option>California</option>
+                  <option>Colorado</option>
+                  <option>Connecticut</option>
+                  <option>Delaware</option>
+                  <option>Florida</option>
+                  <option>Georgia</option>
+                  <option>Hawaii</option>
+                  <option>Idaho</option>
+                  <option>Illinois</option>
+                  <option>Indiana</option>
+                  <option>Iowa</option>
+                  <option>Kansas</option>
+                  <option>Kentucky</option>
+                  <option>Louisiana</option>
+                  <option>Maine</option>
+                  <option>Maryland</option>
+                  <option>Massachusetts</option>
+                  <option>Michigan</option>
+                  <option>Minnesota</option>
+                  <option>Missouri</option>
+                  <option>Montana</option>
+                  <option>Nebraska</option>
+                  <option>Nevada</option>
+                  <option>New Hampshire</option>
+                  <option>New Jersey</option>
+                  <option>New Mexico</option>
+                  <option>New York</option>
+                  <option>North Carolina</option>
+                  <option>North Dakota</option>
+                  <option>Ohio</option>
+                  <option>Oklahoma</option>
+                  <option>Oregon</option>
+                  <option>Pennsylvania</option>
+                  <option>Rhode Island</option>
+                  <option>South Carolina</option>
+                  <option>South Dakota</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Utah</option>
+                  <option>Vermont</option>
+                  <option>Virginia</option>
+                  <option>Washington</option>
+                  <option>West Virginia</option>
+                  <option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="zip">
+                Zipcode
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="zip" type="text" placeholder="12345" value="{{zip}}" (keyup)="onKey($event, 'zip')">
+            </div>
           </div>
           <div class="flex items-center justify-between" id="submitDetailsButton">
             <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitDetails()">
@@ -63,30 +154,36 @@
             </a>
           </div>
         </form>
-        <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+        <form id="password-form" class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
           <a class="block text-gray-700 text-l font-bold mb-6">
             Change Password:
           </a>
           <div class="mb-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="oldPassword">
-              Old Password
+              Current Password
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="oldPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'oldPassword')">
+            focus:bg-yellow-200" id="oldPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'oldPassword')">
           </div>
           <div class="mb-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="newPassword">
               New Password
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="newPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'newPassword')">
+            focus:bg-yellow-200" id="newPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'newPassword')">
+            <p *ngIf="!valid.newPassword" class="text-red-500 text-xs italic">
+              Must be at least 8 characters including an uppercase letter, a lowercase letter, a digit, and a special character.
+            </p> 
           </div>
           <div class="mb-2">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">
               Confirm New Password
             </label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
-            focus:bg-yellow-200" id="confirmPassword" type="text" placeholder="**********" (keyup)="onKey($event, 'confirmPassword')">
+            focus:bg-yellow-200" id="confirmPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'confirmPassword')">
+            <p *ngIf="!valid.confirmPassword" class="text-red-500 text-xs italic">
+              Passwords are different!
+          </p> 
           </div>
           <div class="flex items-center justify-between" id="submitPasswordButton">
             <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitPassword()">

@@ -9,15 +9,13 @@ import { LoginService } from '../services/login/login.service';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent implements OnInit {
-
-  //need to initialize these with current details
   user: any = null;
   error: any = null;
   firstName: string = null;
   lastName: string = null;
-  street: string = null;
+  street: string = null
   city: string = null;
-  state: string = "Alabama";
+  state: string = null;
   zip: string = null;
   email: string = null;
   phoneNumber: string = null;
@@ -33,7 +31,6 @@ export class UserDetailsComponent implements OnInit {
     zip: true,
     email: true,
     phoneNumber: true,
-    oldPassword: false,
     newPassword: false,
     confirmPassword: false,
   };
@@ -47,6 +44,14 @@ export class UserDetailsComponent implements OnInit {
     this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
     });
+    this.firstName = this.user.firstName;
+    this.lastName = this.user.lastName;
+    this.street = this.user.street;
+    this.city = this.user.city;
+    this.state = this.user.state;
+    this.zip = this.user.zip;
+    this.email = this.user.email;
+    this.phoneNumber= this.user.phoneNumber;
     this.loginService
       .errorMessage
       .subscribe(errorMessage => {
@@ -60,6 +65,10 @@ export class UserDetailsComponent implements OnInit {
 
   clearError(): void {
     this.loginService.errorSubject.next(null);
+  }
+
+  onChange(event: any){
+    this.state = event.target.options[event.target.options.selectedIndex].text;
   }
 
   onKey(event: any, type: string) {
@@ -97,8 +106,6 @@ export class UserDetailsComponent implements OnInit {
       this.valid.email = emailPattern.test(this.email);
     } else if(type === 'phoneNumber') {
       this.valid.phoneNumber = phoneNumberPattern.test(this.phoneNumber); 
-    } else if(type === 'oldPassword') {
-      this.valid.oldPassword = this.loginService.validatePassword(this.oldPassword);
     } else if(type === 'newPassword') {
       this.valid.newPassword = passwordPattern.test(this.newPassword);
     }else if(type === 'confirmPassword') {
@@ -121,12 +128,19 @@ export class UserDetailsComponent implements OnInit {
       let address = this.street + ", " + this.city + ", " + this.state + " " + this.zip;
       this.loginService.updateUserDetails(this.firstName, this.lastName, this.email, this.phoneNumber, address);
     }else {
-      this.error = "One or more of your inputs are invalid.";
+      //this.error = "One or more of your inputs are invalid";
+      alert("Update failed. One or more of your inputs are invalid.")
+
     }
   }
 
   onSubmitPassword(){
-
+    if(this.oldPassword != null && this.valid.newPassword && this.valid.confirmPassword){
+      this.loginService.updatePassword(this.oldPassword, this.newPassword);
+    }else {
+      //this.error = "New password is invalid";
+      alert("Update failed. New password is invalid.")
+    }
   }
 
 }
