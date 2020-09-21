@@ -48,6 +48,7 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
+
     this.http.put(`${this.url}/${currentAccount}/withdraw/${dollarAmount}`, {}, authHeader).toPromise().then((res: any) => {
       if(res.transactionType && res.dollarAmount){
         this.errorSubject.next(null);
@@ -94,6 +95,7 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
+
     if(targetAccount != 0){
       this.http.put(`${this.url}/transfer`, { "fromAccountId": currentAccount, "toAccountId": targetAccount, "dollarAmount": dollarAmount }, authHeader).toPromise().then((res: any) =>{
         if(res.transactionType && res.dollarAmount){
@@ -123,8 +125,11 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
-    this.http.delete(`${this.url}/accounts/${AccountNumber}`, authHeader).toPromise().then((res: any) =>{
-      if (res && res.accountNumber) {
+    this.http.delete(`${this.url}/${AccountNumber}`, authHeader).toPromise().then((res: any) =>{
+      if (res) {
+        if(this.notification.value == null) {
+          this.notificationSubject.next("Your account was successfully deleted.")
+        }
         this.router.navigateByUrl('/dashboard');
       }
     }) .catch((err: HttpErrorResponse) => {

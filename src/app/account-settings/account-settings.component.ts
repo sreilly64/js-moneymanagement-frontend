@@ -45,7 +45,7 @@ export class AccountSettingsComponent implements OnInit {
     this.selection = selection;
   }
 
-  updateAccountBalance(index: any) {
+  updateCurrentAccount(index: any) {
     this.accountBalance = this.user.accounts[index].balance;
     sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber);
   }
@@ -72,12 +72,14 @@ export class AccountSettingsComponent implements OnInit {
   onSubmit() {
     if(this.accountBalance === 0) {
       this.accountService.delete(sessionStorage.getItem('accountNumber'));    
+    } else if(this.transactionType === 'transfer' && this.accountToTransferTo != null && this.accountBalance > 0){
+      this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
+      this.accountService.delete(sessionStorage.getItem('accountNumber'));
+    } else if(this.transactionType === 'withdraw' && this.accountBalance > 0){
+      this.accountService.withdraw(this.accountBalance);
+      this.accountService.delete(sessionStorage.getItem('accountNumber'));
     } else if (this.accountBalance < 0) {
       this.error = "Your balance is below $0.00, you cannot delete your account.";
-    } else if(this.transactionType === 'withdraw'){
-      
-    }
-
+    } 
   }
-
 }

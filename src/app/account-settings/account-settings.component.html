@@ -19,7 +19,7 @@
         <form class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
           <div class="mb-6">
             <p class= "text-gray-700 text-sm font-bold mb-2">Please select an account:</p>
-            <select class="text-gray-700 text-sm mb-2" name="accounts" id="accounts" (change)="updateAccountBalance($event.target.value)">
+            <select class="text-gray-700 text-sm mb-2" name="accounts" id="accounts" (change)="updateCurrentAccount($event.target.value)">
               <option disabled selected value> -- select an account -- </option>
               <option *ngFor="let account of user.accounts; index as i" value="{{i}}">
               Account #{{account.accountNumber}}
@@ -28,23 +28,25 @@
               <div class="mb-6">
                 <p class= "text-gray-700 text-sm font-bold mb-2">Please select which action you would like to take:</p>
                 <select class="text-gray-700 text-sm mb-2" name="selection" id="selection" (change)="updateSelection($event.target.value)">
-                  <option value="addname">Add personalized name to account</option>
+                  <option disabled selected value> -- select an action -- </option>
                   <option value="delete">Delete account</option>
                 </select>
               </div>
               <div *ngIf="selection === 'delete' && accountBalance > '0'" class="mb-4">
-                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select if you would like to withdraw or transfer your balance before deletion of the account.</p>
+                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select if you would like to withdraw or transfer your balance before deletion of the account:</p>
                     <div class="relative">
                     <select class="text-gray-700 text-sm mb-2" name="transactionType" id="transactionType" (change)="updateTransactionType($event.target.value)">
+                      <option disabled selected value> -- select a transaction -- </option>
                       <option value="withdraw">Withdraw</option>
                       <option value="transfer">Transfer</option>
                     </select>
                   </div> 
                 </div>
               <div *ngIf="transactionType === 'transfer'" class="mb-4">
-                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select the account you would like to transfer to. </p>
+                <p class= "text-gray-700 text-sm font-bold mb-2">Pease select the account you would like to transfer to: </p>
                     <div class="relative">
                     <select class="text-gray-700 text-sm mb-2" name="otherAccounts" id="otherAccounts" (change)="updateAccountToTransferTo($event.target.value)">
+                      <option disabled selected value> -- select an account -- </option>
                       <option *ngFor="let account of listOfOtherAcccounts(); index as i" value="{{account.accountNumber}}">
                         Account #{{account.accountNumber}}
                       </option>
