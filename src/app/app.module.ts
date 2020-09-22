@@ -11,8 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { AccountSelectionComponent } from './account-selection/account-selection.component';
 import { FormsModule }   from '@angular/forms';
 import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-
 
 
 @NgModule({
@@ -24,6 +24,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     RegisterComponent,
     AccountSelectionComponent,
     TransferFundsComponent,
+    UserDetailsComponent,
     AccountSettingsComponent
   ],
   imports: [

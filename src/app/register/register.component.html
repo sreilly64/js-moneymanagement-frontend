@@ -14,7 +14,7 @@
             </label>
             <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name" (keyup)="onKey($event, 'lastName')" required>
             <p class="text-gray-600 text-xs italic">Please enter your last name as it is written on your government ID.</p>  
-        </div>
+          </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-3">
           <div class="w-full md:w-1/2 px-3" id="grid-ssn">
@@ -25,7 +25,7 @@
             <p *ngIf="!valid.ssn" class="text-red-500 text-xs italic">
                 Please format your ssn as follows: xxx-xx-xxxx.
             </p>   
-        </div>
+          </div>
           <div class="w-full md:w-1/2 px-3" id="grid-email-address">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
               Email
@@ -34,7 +34,7 @@
             <p *ngIf="!valid.email" class="text-red-500 text-xs italic">
                 Please format your email as follows: ex) janedoe@anyemail.com.
             </p>   
-        </div>
+          </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-3">
           <div class="w-full md:w-1/2 px-3" id="grid-user-name">
