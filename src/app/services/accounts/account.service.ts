@@ -8,7 +8,7 @@ import { Router } from '@angular/router'
 })
 
 export class AccountService {
-  url: any = 'http://localhost:8080/api/accounts';
+  url: any = 'https://money-bee-backend.herokuapp.com/api/accounts';
   notificationSubject: any = new BehaviorSubject<any>(null);
   notification: any = this.notificationSubject.asObservable();
   errorSubject: any = new BehaviorSubject<any>(null);
