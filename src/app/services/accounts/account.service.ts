@@ -119,8 +119,7 @@ export class AccountService {
     }
   }
 
-  delete(AccountNumber: string) {
-    const currentAccount = sessionStorage.getItem('accountNumber');
+  delete(accountNumber: string) {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
     headers: new HttpHeaders({
@@ -129,7 +128,7 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
-    this.http.delete(`${this.url}/${AccountNumber}`, authHeader).toPromise().then((res: any) =>{
+    this.http.delete(`${this.url}/${accountNumber}`, authHeader).toPromise().then((res: any) =>{
       if (res) {
         this.notificationSubject.next(sessionStorage.getItem('notification'));
         this.router.navigateByUrl('/dashboard');

@@ -71,8 +71,8 @@ export class AccountSettingsComponent implements OnInit {
 
   onSubmit() {
     if(this.accountBalance === 0) {
-      this.accountService.delete(sessionStorage.getItem('accountNumber'));
-      sessionStorage.setItem('notification', 'Your account was successfully deleted');    
+      sessionStorage.setItem('notification', 'Your account was successfully deleted');  
+      this.accountService.delete(sessionStorage.getItem('accountNumber'));  
     } else if(this.transactionType === 'transfer' && this.accountToTransferTo != null && this.accountBalance > 0){
       this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
       this.accountService.delete(sessionStorage.getItem('accountNumber'));
