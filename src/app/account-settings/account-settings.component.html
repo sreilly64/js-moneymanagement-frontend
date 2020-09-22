@@ -56,6 +56,9 @@
           <div class="flex items-center justify-between" id="submitButton"><button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmit()">
               Submit
             </button>
+            <a *ngIf="user.accounts.length > 0" class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" id="backLink" href="#" [routerLink]="['/dashboard']">
+              Back
+            </a>
           </div>
         </form>
         <div *ngIf="error" class="notification bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

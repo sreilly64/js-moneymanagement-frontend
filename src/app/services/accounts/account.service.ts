@@ -54,8 +54,10 @@ export class AccountService {
         this.errorSubject.next(null);
         if(res.overDrafted == true){
           this.notificationSubject.next("You have over drafted your account and have been charged a $25 fee.");
+          sessionStorage.setItem('notification', 'You have over drafted your account and have been charged a $25 fee.');
         }else{
           this.notificationSubject.next(`Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
+          sessionStorage.setItem('notification', `Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
         }
         this.router.navigateByUrl('/dashboard');
       }
@@ -102,8 +104,10 @@ export class AccountService {
           this.errorSubject.next(null);
           if(res.overDrafted == true){
             this.notificationSubject.next("You have over drafted your account and have been charged a $25 fee.");
+            sessionStorage.setItem('notification', 'You have over drafted your account and have been charged a $25 fee.')
           }else{
             this.notificationSubject.next(`Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
+            sessionStorage.setItem('notification', `Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
           }
           this.router.navigateByUrl('/dashboard');
         }
@@ -127,9 +131,7 @@ export class AccountService {
     };
     this.http.delete(`${this.url}/${AccountNumber}`, authHeader).toPromise().then((res: any) =>{
       if (res) {
-        if(this.notification.value == null) {
-          this.notificationSubject.next("Your account was successfully deleted.")
-        }
+        this.notificationSubject.next(sessionStorage.getItem('notification'));
         this.router.navigateByUrl('/dashboard');
       }
     }) .catch((err: HttpErrorResponse) => {
