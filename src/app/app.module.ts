@@ -12,7 +12,7 @@ import { AccountSelectionComponent } from './account-selection/account-selection
 import { FormsModule }   from '@angular/forms';
 import { TransferFundsComponent } from './transfer-funds/transfer-funds.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -24,7 +24,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     RegisterComponent,
     AccountSelectionComponent,
     TransferFundsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,

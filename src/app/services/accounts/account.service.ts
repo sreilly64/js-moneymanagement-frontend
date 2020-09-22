@@ -48,13 +48,16 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
+
     this.http.put(`${this.url}/${currentAccount}/withdraw/${dollarAmount}`, {}, authHeader).toPromise().then((res: any) => {
       if(res.transactionType && res.dollarAmount){
         this.errorSubject.next(null);
         if(res.overDrafted == true){
           this.notificationSubject.next("You have over drafted your account and have been charged a $25 fee.");
+          sessionStorage.setItem('notification', 'You have over drafted your account and have been charged a $25 fee.');
         }else{
           this.notificationSubject.next(`Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
+          sessionStorage.setItem('notification', `Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
         }
         this.router.navigateByUrl('/dashboard');
       }
@@ -94,14 +97,17 @@ export class AccountService {
       Authorization: 'Bearer ' + jwt,
       })
     };
+
     if(targetAccount != 0){
       this.http.put(`${this.url}/transfer`, { "fromAccountId": currentAccount, "toAccountId": targetAccount, "dollarAmount": dollarAmount }, authHeader).toPromise().then((res: any) =>{
         if(res.transactionType && res.dollarAmount){
           this.errorSubject.next(null);
           if(res.overDrafted == true){
             this.notificationSubject.next("You have over drafted your account and have been charged a $25 fee.");
+            sessionStorage.setItem('notification', 'You have over drafted your account and have been charged a $25 fee.')
           }else{
             this.notificationSubject.next(`Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
+            sessionStorage.setItem('notification', `Your ${res.transactionType} of $${res.dollarAmount} was successful!`);
           }
           this.router.navigateByUrl('/dashboard');
         }
@@ -113,4 +119,22 @@ export class AccountService {
     }
   }
 
-}
+  delete(accountNumber: string) {
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + jwt,
+      })
+    };
+    this.http.delete(`${this.url}/${accountNumber}`, authHeader).toPromise().then((res: any) =>{
+      if (res) {
+        this.notificationSubject.next(sessionStorage.getItem('notification'));
+        this.router.navigateByUrl('/dashboard');
+      }
+    }) .catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
+    });   
+    }
+  }
