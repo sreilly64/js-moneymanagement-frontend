@@ -77,8 +77,13 @@ export class AccountSettingsComponent implements OnInit {
       this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
       this.accountService.delete(sessionStorage.getItem('accountNumber'));
     } else if(this.transactionType === 'withdraw' && this.accountBalance > 0){
-      this.accountService.withdraw(this.accountBalance);
-      this.accountService.delete(sessionStorage.getItem('accountNumber'));
+      if(this.user.accounts.length > 1) {
+        this.accountService.withdraw(this.accountBalance);
+        this.accountService.delete(sessionStorage.getItem('accountNumber'));
+      } else {
+        this.error = "You cannot delete your only account.";
+      }
+      
     } else if (this.accountBalance < 0) {
       this.error = "Your balance is below $0.00, you cannot delete your account.";
     } 
