@@ -1,0 +1,24 @@
+<div id="dashboard-component" class="container mx-auto items-center justify-center">
+  <div id="nav-bar">
+    <a href="/dashboard">
+      <img src="./../../assets/money-bee-logo.png">
+    </a>
+    <div class="dropdown">
+      <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Options 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/account-selection">Add New Account</a>
+        <a href="/user-settings">User Details</a>
+        <a href="/account-settings">Account Settings</a>
+        <a href="/" (click)="logout()">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div id="dashboard-banner" class="flex mx-auto items-center justify-center">
+    <h3>
+      {{notification ? notification: 'Welcome to your dashboard!'}}
+    </h3>
+  </div>
+  <app-account-preview id="account-card" [user]="user"></app-account-preview>
+</div>

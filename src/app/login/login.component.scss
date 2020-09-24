@@ -1,0 +1,18 @@
+#login-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  color: white;
+  position: relative;
+  background-image: url('../../assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}
+
+#logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}

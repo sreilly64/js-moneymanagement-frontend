@@ -1,0 +1,207 @@
+<div id="nav-bar">
+  <a href="/dashboard">
+    <img src="./../../assets/money-bee-logo.png">
+  </a>
+  <div class="dropdown">
+    <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Options 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="/account-selection">Add New Account</a>
+      <a href="/user-settings">User Details</a>
+      <a href="/account-settings">Account Settings</a>
+      <a href="/" (click)="logout()">Logout</a>
+    </div>
+  </div>
+</div>
+<div id="user-details-container" class="flex container mx-auto justify-center">
+    <div class="w-full max-w-xl" id="creationBox">
+        <form id="details-form" class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+          <a class="block text-gray-700 text-l font-bold mb-6">
+            Edit User Details:
+          </a>
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0" id="grid-first-name">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                First Name
+              </label>
+              <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-first-name" required type="text" placeholder="First Name" value="{{firstName}}" (keyup)="onKey($event, 'firstName')" >
+              <p class="text-gray-600 text-xs italic">Please enter your first name as it is written on your government ID.</p>
+          </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                Last Name
+              </label>
+              <input value="{{lastName}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-last-name" type="text" placeholder="Last Name" (keyup)="onKey($event, 'lastName')" required>
+              <p class="text-gray-600 text-xs italic">Please enter your last name as it is written on your government ID.</p>  
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-phone-number">
+                Phone Number
+              </label>
+              <input value="{{phoneNumber}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-phone-number" type="text" placeholder="Phone Number" (keyup)="onKey($event, 'phoneNumber')" required>
+              <p *ngIf="!valid.phoneNumber" class="text-red-500 text-xs italic">
+                  Please format your phone number as follows: ex) xxx-xxx-xxxx.
+              </p>   
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                Email
+              </label>
+              <input value="{{email}}" class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" id="grid-email" type="text" placeholder="Email" (keyup)="onKey($event, 'email')" required>
+              <p *ngIf="!valid.email" class="text-red-500 text-xs italic">
+                  Please format your email as follows: ex) janedoe@anyemail.com.
+              </p>   
+            </div>
+          </div>
+
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+                Street
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="street" type="text" placeholder="123 Street" value="{{street}}" (keyup)="onKey($event, 'street')">    
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                City
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="city" type="text" placeholder="City" value="{{city}}" (keyup)="onKey($event, 'city')">     
+            </div>
+          </div>
+
+          <div class="flex flex-wrap -mx-3 mb-3">
+            <div class="w-full md:w-1/2 px-3" id="grid-phone-num">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                State
+              </label>
+              <div class="relative">
+                <select class="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-yellow-200 focus:border-gray-500" (change) ="onChange($event)" id="grid-state">
+                  <option>{{state}}</option>
+                  <option>Alabama</option>
+                  <option>Alaska</option>
+                  <option>Arizona</option>
+                  <option>Arkansas</option>
+                  <option>California</option>
+                  <option>Colorado</option>
+                  <option>Connecticut</option>
+                  <option>Delaware</option>
+                  <option>Florida</option>
+                  <option>Georgia</option>
+                  <option>Hawaii</option>
+                  <option>Idaho</option>
+                  <option>Illinois</option>
+                  <option>Indiana</option>
+                  <option>Iowa</option>
+                  <option>Kansas</option>
+                  <option>Kentucky</option>
+                  <option>Louisiana</option>
+                  <option>Maine</option>
+                  <option>Maryland</option>
+                  <option>Massachusetts</option>
+                  <option>Michigan</option>
+                  <option>Minnesota</option>
+                  <option>Missouri</option>
+                  <option>Montana</option>
+                  <option>Nebraska</option>
+                  <option>Nevada</option>
+                  <option>New Hampshire</option>
+                  <option>New Jersey</option>
+                  <option>New Mexico</option>
+                  <option>New York</option>
+                  <option>North Carolina</option>
+                  <option>North Dakota</option>
+                  <option>Ohio</option>
+                  <option>Oklahoma</option>
+                  <option>Oregon</option>
+                  <option>Pennsylvania</option>
+                  <option>Rhode Island</option>
+                  <option>South Carolina</option>
+                  <option>South Dakota</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Utah</option>
+                  <option>Vermont</option>
+                  <option>Virginia</option>
+                  <option>Washington</option>
+                  <option>West Virginia</option>
+                  <option>Wisconsin</option>
+                  <option>Wyoming</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full md:w-1/2 px-3" id="grid-email-address">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="zip">
+                Zipcode
+              </label>
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+              focus:bg-yellow-200" id="zip" type="text" placeholder="12345" value="{{zip}}" (keyup)="onKey($event, 'zip')">
+            </div>
+          </div>
+          <div class="flex items-center justify-between" id="submitDetailsButton">
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitDetails()">
+              Submit
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" id="backLink" href="#" [routerLink]="['/dashboard']">
+              Back
+            </a>
+          </div>
+        </form>
+        <form id="password-form" class="bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+          <a class="block text-gray-700 text-l font-bold mb-6">
+            Change Password:
+          </a>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="oldPassword">
+              Current Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="oldPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'oldPassword')">
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="newPassword">
+              New Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="newPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'newPassword')">
+            <p *ngIf="!valid.newPassword" class="text-red-500 text-xs italic">
+              Must be at least 8 characters including an uppercase letter, a lowercase letter, a digit, and a special character.
+            </p> 
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">
+              Confirm New Password
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none 
+            focus:bg-yellow-200" id="confirmPassword" type="password" placeholder="**********" (keyup)="onKey($event, 'confirmPassword')">
+            <p *ngIf="!valid.confirmPassword" class="text-red-500 text-xs italic">
+              Passwords are different!
+          </p> 
+          </div>
+          <div class="flex items-center justify-between" id="submitPasswordButton">
+            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" (click)="onSubmitPassword()">
+              Submit
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-900" id="backLink" href="#" [routerLink]="['/dashboard']">
+              Back
+            </a>
+          </div>
+        </form>
+        <div *ngIf="error" class="notification bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">Error! </strong>
+          <span class="block sm:inline">{{error}}</span>
+          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+              (click)="clearError()"/></svg>
+          </span>
+        </div>
+    </div>
+  </div>  

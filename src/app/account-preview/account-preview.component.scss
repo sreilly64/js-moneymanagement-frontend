@@ -1,0 +1,28 @@
+#account-card {
+  background-color: white;
+  margin-top: 15px;
+  text-align: center;
+  min-width: 300px;
+}
+
+#account-list {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#balance {
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+#transferButton {
+  font-size: small;
+  margin-left: 20px;
+}
+
+#moneyStuff {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
