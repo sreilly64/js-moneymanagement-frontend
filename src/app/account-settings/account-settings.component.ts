@@ -73,12 +73,21 @@ export class AccountSettingsComponent implements OnInit {
     if(this.accountBalance === 0) {
       sessionStorage.setItem('notification', 'Your account was successfully deleted');  
       this.accountService.delete(sessionStorage.getItem('accountNumber'));  
-    } else if(this.transactionType === 'transfer' && this.accountToTransferTo != null && this.accountBalance > 0){
-      this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
-      this.accountService.delete(sessionStorage.getItem('accountNumber'));
+    } else if(this.transactionType === 'transfer' && this.accountBalance > 0){
+      if(this.accountToTransferTo != 0) {
+        this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
+        this.accountService.delete(sessionStorage.getItem('accountNumber'));
+      } else {
+        this.error = "Please select an account to transfer to.";
+      }
+      
     } else if(this.transactionType === 'withdraw' && this.accountBalance > 0){
-      this.accountService.withdraw(this.accountBalance);
-      this.accountService.delete(sessionStorage.getItem('accountNumber'));
+      if(this.user.accounts.length > 1) {
+        this.accountService.withdraw(this.accountBalance);
+        this.accountService.delete(sessionStorage.getItem('accountNumber'));
+      } else {
+        this.error = "You cannot delete your only account.";
+      }
     } else if (this.accountBalance < 0) {
       this.error = "Your balance is below $0.00, you cannot delete your account.";
     } 
