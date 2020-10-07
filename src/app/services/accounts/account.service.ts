@@ -19,7 +19,7 @@ export class AccountService {
     private router: Router,
   ) { }
 
-  postAccount(DollarInput: string, AccountType: string) {
+  postAccount(DollarInput: string, AccountType: string, Nickname: string) {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
       headers: new HttpHeaders({
@@ -29,7 +29,7 @@ export class AccountService {
       })
     };
 
-   this.http.post(`${this.url}`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput}, authHeader).toPromise().then((res: any) => {
+   this.http.post(`${this.url}`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput, "nickname": Nickname}, authHeader).toPromise().then((res: any) => {
      if (res && res.accountNumber) {
        this.router.navigateByUrl('/dashboard');
      }
