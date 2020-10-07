@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthGuardGuard implements CanActivate {
-  url = 'https://money-bee-backend.herokuapp.com/api'
+  url = 'http://localhost:8080/api'
 
   constructor(
     private router: Router,

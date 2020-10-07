@@ -12,6 +12,9 @@ export class AccountSelectionComponent implements OnInit {
   dollarInput: string = null;
   accountType: string = "CHECKING";
   amountIsValid: boolean = false;
+  hasNickname: boolean = false;
+  nickname: string = null;
+  nicknameIsValid: boolean = false;
   user: any = null;
   error = null; 
 
@@ -33,6 +36,10 @@ export class AccountSelectionComponent implements OnInit {
 
   logout(){
     sessionStorage.clear();
+  }
+
+  updateNickname(input: boolean){
+    this.hasNickname = input;
   }
 
   updateAccountType(accountType: any) {
