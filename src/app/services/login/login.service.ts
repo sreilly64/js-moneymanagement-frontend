@@ -42,33 +42,6 @@ export class LoginService {
     });
   }
 
-  // validatePassword(password: string): boolean {
-  //   let userId = sessionStorage.getItem('userId');
-  //   const jwt = sessionStorage.getItem('jwt');
-  //   const authHeader = {
-  //     headers: new HttpHeaders({
-  //       'Access-Control-Allow-Origin': '*',
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Bearer ' + jwt,
-  //     })
-  //   };
-  //   let output = false;
-  //   this.http.get(`${this.url}/users/${userId}`, authHeader).toPromise().then((res: any) => {
-  //     if (res && res.password) {
-  //       this.errorSubject.next(null);
-  //       if(res.password == password){
-  //         output = true
-  //       } else {
-  //         output = false;
-  //       }
-  //     } 
-  //   }).catch((err: HttpErrorResponse) => {
-  //     this.errorSubject.next(err.error.message);
-  //     output = false;
-  //   });
-  //   return output;
-  // }
-
   getUser() {
     const userId = sessionStorage.getItem('userId');
     const jwt = sessionStorage.getItem('jwt');
@@ -112,7 +85,6 @@ export class LoginService {
         alert("Password successfully updated!")
       }
     }).catch((err: HttpErrorResponse) => {
-      //this.errorSubject.next(err.error.message);
       alert(`Update failed. ${err.error.message}`);
     });
   }
@@ -134,7 +106,6 @@ export class LoginService {
         alert("Details successfully updated!")
       } 
     }).catch((err: HttpErrorResponse) => {
-      //this.errorSubject.next(err.error.message);
       alert(err.error.message);
     });
   }
