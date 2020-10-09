@@ -12,6 +12,9 @@ export class AccountSelectionComponent implements OnInit {
   dollarInput: string = null;
   accountType: string = "CHECKING";
   amountIsValid: boolean = false;
+  hasNickname: boolean = false;
+  nickname: string = null;
+  nicknameIsValid: boolean = true;
   user: any = null;
   error = null; 
 
@@ -35,31 +38,56 @@ export class AccountSelectionComponent implements OnInit {
     sessionStorage.clear();
   }
 
+  updateNickname(input: any){
+    if(input == "false"){
+      this.hasNickname = false;
+      this.nickname = null;
+      this.nicknameIsValid = true;
+    }else {
+      this.hasNickname = true;
+      this.nicknameIsValid = false;
+    }
+  }
+
   updateAccountType(accountType: any) {
     this.accountType = accountType;
   }  
 
-  validate(): void {
+  validateDollarAmount(): void {
     const dollarPattern = RegExp(/^\d+\.\d{2}$/);
     let amountEntered = parseFloat(this.dollarInput);
     if(this.accountType === "CHECKING") {
-      this.amountIsValid = dollarPattern.test(this.dollarInput)&&amountEntered >= 5.00;
+      this.amountIsValid = dollarPattern.test(this.dollarInput) && amountEntered >= 5.00;
     } else{
-      this.amountIsValid = dollarPattern.test(this.dollarInput)&&amountEntered >= 250.00;
+      this.amountIsValid = dollarPattern.test(this.dollarInput) && amountEntered >= 250.00;
     }
-    
   }
 
-  onKey(event: any) {
-    this.dollarInput = event.target.value;
-    this.validate();
+  validateNickname(): void {
+    const namePattern =  RegExp(/^[\w-.', ]*$/);
+    this.nicknameIsValid = namePattern.test(this.nickname) && this.nickname.length > 0 && this.nickname.length < 25;
+  }
+
+  onKey(event: any, type: string) {
+    if(type === "amount"){
+      this.dollarInput = event.target.value;
+      this.validateDollarAmount();
+    }else if(type === "nickname"){
+      this.nickname = event.target.value;
+      this.validateNickname();
+    }
   }
 
   onSubmit(): void {
-    if (this.amountIsValid) {
-      this.accountService.postAccount(this.dollarInput, this.accountType);
+    if (this.amountIsValid && this.nicknameIsValid) {
+      this.accountService.postAccount(this.dollarInput, this.accountType, this.nickname);
     } else {
-      this.error = "Invalid dollar amount."
+      if(!this.amountIsValid){
+        this.error = "Invalid dollar amount."
+      }else if(!this.nicknameIsValid){
+        this.error = "Invalid nickname."
+      }
+      
     }
   }
 

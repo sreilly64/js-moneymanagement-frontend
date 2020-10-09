@@ -8,7 +8,7 @@ import { Router } from '@angular/router'
 })
 
 export class AccountService {
-  url: any = 'https://money-bee-backend.herokuapp.com/api/accounts';
+  url: any = 'http://localhost:8080/api/accounts';
   notificationSubject: any = new BehaviorSubject<any>(null);
   notification: any = this.notificationSubject.asObservable();
   errorSubject: any = new BehaviorSubject<any>(null);
@@ -19,7 +19,7 @@ export class AccountService {
     private router: Router,
   ) { }
 
-  postAccount(DollarInput: string, AccountType: string) {
+  postAccount(DollarInput: string, AccountType: string, Nickname: string) {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
       headers: new HttpHeaders({
@@ -29,7 +29,7 @@ export class AccountService {
       })
     };
 
-   this.http.post(`${this.url}`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput}, authHeader).toPromise().then((res: any) => {
+   this.http.post(`${this.url}`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput, "nickname": Nickname}, authHeader).toPromise().then((res: any) => {
      if (res && res.accountNumber) {
        this.router.navigateByUrl('/dashboard');
      }
@@ -122,10 +122,10 @@ export class AccountService {
   delete(accountNumber: string) {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + jwt,
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
       })
     };
     this.http.delete(`${this.url}/${accountNumber}`, authHeader).toPromise().then((res: any) =>{
@@ -133,8 +133,28 @@ export class AccountService {
         this.notificationSubject.next(sessionStorage.getItem('notification'));
         this.router.navigateByUrl('/dashboard');
       }
-    }) .catch((err: HttpErrorResponse) => {
+    }).catch((err: HttpErrorResponse) => {
       this.errorSubject.next(err.error.message)
     });   
-    }
   }
+
+  setNickname(accountNumber: string, nickname: string) {
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+    this.http.put(`${this.url}/${accountNumber}/nickname`, { "nickname": nickname }, authHeader).toPromise().then((res: any) => {
+      if(res && res.accountNumber){
+        this.notificationSubject.next("Account nickname updated.");
+        this.router.navigateByUrl('/dashboard');
+      }
+    }).catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
+    });
+
+  }
+}
