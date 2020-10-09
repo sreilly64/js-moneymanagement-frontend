@@ -122,10 +122,10 @@ export class AccountService {
   delete(accountNumber: string) {
     const jwt = sessionStorage.getItem('jwt');
     const authHeader = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + jwt,
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
       })
     };
     this.http.delete(`${this.url}/${accountNumber}`, authHeader).toPromise().then((res: any) =>{
@@ -133,8 +133,28 @@ export class AccountService {
         this.notificationSubject.next(sessionStorage.getItem('notification'));
         this.router.navigateByUrl('/dashboard');
       }
-    }) .catch((err: HttpErrorResponse) => {
+    }).catch((err: HttpErrorResponse) => {
       this.errorSubject.next(err.error.message)
     });   
-    }
   }
+
+  setNickname(accountNumber: string, nickname: string) {
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+    this.http.put(`${this.url}/${accountNumber}/nickname`, { "nickname": nickname }, authHeader).toPromise().then((res: any) => {
+      if(res && res.accountNumber){
+        this.notificationSubject.next("Account nickname updated.");
+        this.router.navigateByUrl('/dashboard');
+      }
+    }).catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message)
+    });
+
+  }
+}

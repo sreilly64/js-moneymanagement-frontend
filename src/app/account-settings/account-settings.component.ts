@@ -9,12 +9,14 @@ import { identifierModuleUrl } from '@angular/compiler';
   styleUrls: ['./account-settings.component.scss']
 })
 export class AccountSettingsComponent implements OnInit {
-  accountBalance: any = null;
+  account: any = null;
   error = null;
   user: any = null;
   selection: string = '';
   transactionType: string = '';
   accountToTransferTo: number = 0;
+  newNickname: string = null;
+  nicknameIsValid: boolean = this.validateNickname();
 
 
   constructor(
@@ -33,6 +35,23 @@ export class AccountSettingsComponent implements OnInit {
       })
   }
 
+  onKey(event: any, type: string) {
+    if(type === "nickname"){
+      this.newNickname = event.target.value;
+      this.validateNickname();
+    }
+  }
+
+  validateNickname(): boolean {
+    if(this.newNickname != null){
+      const namePattern =  RegExp(/^[\w-.', ]*$/);
+      this.nicknameIsValid = namePattern.test(this.newNickname) && this.newNickname.length > 0 && this.newNickname.length < 25;
+      return this.nicknameIsValid;
+    }else {
+      return false;
+    }
+  }
+
   logout(): void {
     sessionStorage.clear();
   }
@@ -46,7 +65,10 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   updateCurrentAccount(index: any) {
-    this.accountBalance = this.user.accounts[index].balance;
+    this.account = this.user.accounts[index]
+    this.newNickname = this.account.nickname;
+    this.nicknameIsValid = this.validateNickname();
+    console.log(this.account.accountNumber);
     sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber);
   }
 
@@ -70,25 +92,47 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.accountBalance === 0) {
+    if(this.selection == "delete"){
+      this.deleteAccount();
+    }else if (this.selection == "nickname"){
+      this.setNickname();
+    }else if (this.selection == "removeNickname"){
+      this.removeNickname();
+    }
+  }
+
+  removeNickname(){
+    this.accountService.setNickname(this.account.accountNumber, "");
+  }
+
+  setNickname() {
+    if(this.nicknameIsValid){
+      this.accountService.setNickname(this.account.accountNumber, this.newNickname);
+    }else {
+      this.error = "Invalid nickname";
+    }
+  }
+
+  deleteAccount() {
+    if(this.account.balance === 0) {
       sessionStorage.setItem('notification', 'Your account was successfully deleted');  
       this.accountService.delete(sessionStorage.getItem('accountNumber'));  
-    } else if(this.transactionType === 'transfer' && this.accountBalance > 0){
+    } else if(this.transactionType === 'transfer' && this.account.balance > 0){
       if(this.accountToTransferTo != 0) {
-        this.accountService.transfer(this.accountBalance, this.accountToTransferTo);
+        this.accountService.transfer(this.account.balance, this.accountToTransferTo);
         this.accountService.delete(sessionStorage.getItem('accountNumber'));
       } else {
         this.error = "Please select an account to transfer to.";
       }
       
-    } else if(this.transactionType === 'withdraw' && this.accountBalance > 0){
+    } else if(this.transactionType === 'withdraw' && this.account.balance > 0){
       if(this.user.accounts.length > 1) {
-        this.accountService.withdraw(this.accountBalance);
+        this.accountService.withdraw(this.account.balance);
         this.accountService.delete(sessionStorage.getItem('accountNumber'));
       } else {
         this.error = "You cannot delete your only account.";
       }
-    } else if (this.accountBalance < 0) {
+    } else if (this.account.balance < 0) {
       this.error = "Your balance is below $0.00, you cannot delete your account.";
     } 
   }
