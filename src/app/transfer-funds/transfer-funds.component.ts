@@ -14,6 +14,7 @@ export class TransferFundsComponent implements OnInit {
   amountIsValid: boolean = false;
   user: any = null;
   error: any = null;
+  transactionHistory: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,11 +25,13 @@ export class TransferFundsComponent implements OnInit {
     this.route.data.subscribe((data: { user: any }) => {
       this.user = data.user;
     })
-    this.accountService
-      .errorMessage
-      .subscribe(errorMessage => {
+    this.accountService.errorMessage.subscribe(errorMessage => {
         this.error = errorMessage;
     })
+    this.accountService.transactionHistory.subscribe(transactions => {
+      this.transactionHistory = transactions;
+    })
+    console.log(this.transactionHistory)
   }
 
   listOfOtherAcccounts(): any{
