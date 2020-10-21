@@ -28,6 +28,7 @@ export class TransferFundsComponent implements OnInit {
     this.accountService.errorMessage.subscribe(errorMessage => {
         this.error = errorMessage;
     })
+    this.accountService.getTransactionHistory(sessionStorage.getItem('accountNumber'));
     this.accountService.transactionHistory.subscribe(transactions => {
       this.transactionHistory = transactions;
     })
