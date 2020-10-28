@@ -79,4 +79,21 @@
             </span>
           </div>
     </div>
+    <div *ngIf="transactionHistory.length > 0" id="history-container" class="flex grid container mx-auto items-center justify-center">
+      <table class="block bg-white shadow-md rounded border border-gray-600 px-8 pt-6 pb-8 mb-4">
+        <h2>Transaction History</h2>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Details</th>
+        </tr>
+        <tr *ngFor="let transaction of transactionHistory; index as i">
+          <td>{{transaction.date}}</td>
+          <td>{{transaction.timestamp}}</td>
+          <td *ngIf="transaction.transactionType=='WITHDRAW'">The amount of ${{transaction.dollarAmount}} was withdrawn from this account.</td>
+          <td *ngIf="transaction.transactionType=='DEPOSIT'">The amount of ${{transaction.dollarAmount}} was deposited into this account.</td>
+          <td *ngIf="transaction.transactionType=='TRANSFER'">The amount of ${{transaction.dollarAmount}} was transfered from this account to account #{{transaction.secondaryAccountNumber}}.</td>
+        </tr>
+      </table>
+    </div>
 </div>

@@ -8,6 +8,22 @@
       width: 25%;
       min-width: 300px;
     }
+
+    #history-container{
+      text-align: left;
+
+      h2{
+        font-weight: bold;
+      }
+
+      td{
+        padding-right: 12px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    }
   
     h3 {
       font-size: 30px;

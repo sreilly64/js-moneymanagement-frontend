@@ -13,11 +13,32 @@ export class AccountService {
   notification: any = this.notificationSubject.asObservable();
   errorSubject: any = new BehaviorSubject<any>(null);
   errorMessage: any = this.errorSubject.asObservable();
+  transactionsSubject: any = new BehaviorSubject<any>(null);
+  transactionHistory: any = this.transactionsSubject.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) { }
+
+  getTransactionHistory(accountNumber: string) {
+    const jwt = sessionStorage.getItem('jwt');
+    const authHeader = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + jwt,
+      })
+    };
+
+    this.http.get(`${this.url}/${accountNumber}/transactions`, authHeader).toPromise().then((res: any) => {
+      if(res){
+        this.transactionsSubject.next(res);
+      }
+    }).catch((err: HttpErrorResponse) => {
+      this.errorSubject.next(err.error.message);
+    })
+  }
 
   postAccount(DollarInput: string, AccountType: string, Nickname: string) {
     const jwt = sessionStorage.getItem('jwt');
@@ -33,7 +54,7 @@ export class AccountService {
      if (res && res.accountNumber) {
        this.router.navigateByUrl('/dashboard');
      }
-   }) .catch((err: HttpErrorResponse) => {
+   }).catch((err: HttpErrorResponse) => {
      this.errorSubject.next(err.error.message)
    }); 
   }

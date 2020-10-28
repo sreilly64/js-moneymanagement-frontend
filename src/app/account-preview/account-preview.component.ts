@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router'
+import { AccountService } from '../services/accounts/account.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AccountPreviewComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private accountService: AccountService
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +30,7 @@ export class AccountPreviewComponent implements OnInit {
     sessionStorage.setItem('accountNumber', this.user.accounts[index].accountNumber);
     sessionStorage.setItem('accountType', this.user.accounts[index].type);
     sessionStorage.setItem('accountBalance', this.user.accounts[index].balance);
+    this.accountService.getTransactionHistory(this.user.accounts[index].accountNumber);
     this.router.navigateByUrl('/transfers');
   }
 
