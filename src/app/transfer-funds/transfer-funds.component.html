@@ -92,7 +92,7 @@
           <td>{{transaction.timestamp}}</td>
           <td *ngIf="transaction.transactionType=='WITHDRAW'">The amount of ${{transaction.dollarAmount}} was withdrawn from this account.</td>
           <td *ngIf="transaction.transactionType=='DEPOSIT'">The amount of ${{transaction.dollarAmount}} was deposited into this account.</td>
-          <td *ngIf="transaction.transactionType=='TRANSFER'">The amount of ${{transaction.dollarAmount}} was transfered from this account to account #{{transaction.secondaryAccountNumber}}.</td>
+          <td *ngIf="transaction.transactionType=='TRANSFER'">The amount of ${{transaction.dollarAmount}} was transfered from account #{{transaction.primaryAccountNumber}} to account #{{transaction.secondaryAccountNumber}}.</td>
         </tr>
       </table>
     </div>
