@@ -50,7 +50,7 @@ export class AccountService {
       })
     };
 
-   this.http.post(`${this.url}`, { "type": AccountType, "routingNumber": 394058927, "userId": sessionStorage.getItem('userId'), "balance": DollarInput, "nickname": Nickname}, authHeader).toPromise().then((res: any) => {
+   this.http.post(`${this.url}`, { "type": AccountType, "userId": sessionStorage.getItem('userId'), "balance": DollarInput, "nickname": Nickname}, authHeader).toPromise().then((res: any) => {
      if (res && res.accountNumber) {
        this.router.navigateByUrl('/dashboard');
      }
@@ -169,7 +169,7 @@ export class AccountService {
       })
     };
     this.http.put(`${this.url}/${accountNumber}/nickname`, { "nickname": nickname }, authHeader).toPromise().then((res: any) => {
-      if(res && res.accountNumber){
+      if(res && res.nickname){
         this.notificationSubject.next("Account nickname updated.");
         this.router.navigateByUrl('/dashboard');
       }
